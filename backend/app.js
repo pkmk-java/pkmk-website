@@ -1,6 +1,6 @@
 import "dotenv/config";
 import express from "express";
-import { connectDB } from "./db/connectDB";
+import { connectDB } from "./db/connectDB.js";
 const app = express();
 
 app.get("/", function (req, res) {
@@ -9,10 +9,10 @@ app.get("/", function (req, res) {
 
 async function startServer() {
   try {
-    await connectDB(process.env.MONG_URL);
+    await connectDB(process.env.MONGO_URL);
     app.listen(3000, () => console.log("Server running ..."));
   } catch (error) {
-    throw new Error("Internal Server error");
+    console.log(error);
   }
 }
 
