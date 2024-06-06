@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { userModel } from "../model/userModel";
+import { userModel } from "../model/userModel.js";
 
 export const userMiddleware = async (req, res, next) => {
   const headers = req.headers.authorization;
@@ -11,7 +11,8 @@ export const userMiddleware = async (req, res, next) => {
   const token = headers.split(" ")[1];
   try {
     const data = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await userModel.findOne({ _id: data._id });
+    const user = await userModel.findOne({ email: data.email });
+    console.log(user);
 
     if (!user) {
       return res

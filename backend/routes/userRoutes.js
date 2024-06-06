@@ -4,8 +4,8 @@ import {
   getAllProduct,
   loginUser,
   registerUser,
-} from "../controller/userController";
-import { userMiddleware } from "../middleware/userMiddleware";
+} from "../controller/userController.js";
+import { userMiddleware } from "../middleware/userMiddleware.js";
 const router = express.Router();
 
 router.post("/login", loginUser);

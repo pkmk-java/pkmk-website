@@ -1,10 +1,10 @@
 import {} from "cloudinary";
-import { userModel } from "../model/userModel";
-import { hashPasswordHandler } from "../helper/hashPassword";
-import { passwordCompareHandler } from "../helper/passwordCompare";
-import { jwtGeneratorHandler } from "../helper/jwtGenerator";
-import { productModel } from "../model/productModel";
-import { cartModel } from "../model/cartModel";
+import { userModel } from "../model/userModel.js";
+import { hashPasswordHandler } from "../helper/hashPassword.js";
+import { passwordCompareHandler } from "../helper/passwordCompare.js";
+import { jwtGeneratorHandler } from "../helper/jwtGenerator.js";
+import { productModel } from "../model/productModel.js";
+import { cartModel } from "../model/cartModel.js";
 
 const registerUser = async (req, res) => {
   const { username, email, password } = req.body;
@@ -24,7 +24,7 @@ const registerUser = async (req, res) => {
       return res.status(401).json({ msg: "email already used" });
     }
 
-    const securePassword = hashPasswordHandler(password);
+    const securePassword = await hashPasswordHandler(password);
     console.log(securePassword);
 
     const userBlueprint = new userModel({
@@ -69,7 +69,7 @@ const loginUser = async (req, res) => {
     return res
       .status(200)
       .cookie("token", token, {
-        expires: new Date.now() + 86400000,
+        expires: new Date(Date.now() + 900000),
         httpOnly: true,
       })
       .json({ msg: "success login user", isUserExist });
@@ -112,7 +112,7 @@ const addProductToCart = async (req, res) => {
           quantity: quantity,
         },
       ],
-      createdBy: existingUser._id,
+      createdBy: existingUser._id.toString(),
       total: totalCart,
     });
 

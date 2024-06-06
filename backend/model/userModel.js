@@ -16,16 +16,11 @@ const userSchema = new Schema({
   },
   password: {
     type: String,
-    min: 6,
     required: [true, "please provide password"],
   },
   avatar: {
     type: String,
     default: "",
-  },
-  role: {
-    enum: ["admin", "member"],
-    default: "user",
   },
   cart: [
     {
