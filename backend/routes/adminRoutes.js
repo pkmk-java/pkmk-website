@@ -10,6 +10,7 @@ import { adminMiddleware } from "../middleware/adminMiddlware.js";
 import { upload } from "../middleware/multer.js";
 const router = express.Router();
 
+router.get("/get-all-product", adminMiddleware);
 router.post("/register", registerAdmin);
 router.post("/login", loginAdmin);
 router.post(

@@ -122,6 +122,17 @@ const createProduct = async (req, res) => {
   }
 };
 
+const getAllProduct = async (req, res) => {
+  try {
+    const product = await productModel.find({});
+
+    return res.status(200).json({ msg: "success", product });
+  } catch (error) {
+    console.log(error);
+    return res.status(501).json({ msg: "internal server error" });
+  }
+};
+
 const deleteProduct = async (req, res) => {
   const { id } = req.params;
   try {
@@ -194,4 +205,5 @@ export {
   createProduct,
   deleteProduct,
   updateProduct,
+  getAllProduct,
 };
