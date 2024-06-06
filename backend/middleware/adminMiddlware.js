@@ -1,5 +1,5 @@
 import express from "express";
-import { adminModel } from "../model/adminModel";
+import { adminModel } from "../model/adminModel.js";
 import jwt from "jsonwebtoken";
 
 export const adminMiddleware = async (req, res, next) => {
