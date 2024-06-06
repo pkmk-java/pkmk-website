@@ -20,10 +20,6 @@ const adminSchema = new Schema({
     type: String,
     default: "",
   },
-  role: {
-    enum: ["admin", "member"],
-    default: "admin",
-  },
   createdProdcut: [
     {
       productId: {
