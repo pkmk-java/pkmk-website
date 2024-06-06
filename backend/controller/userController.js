@@ -99,7 +99,7 @@ const addProductToCart = async (req, res) => {
   }
 
   try {
-    const existingUser = await userModel.findOne({ _id: req.user.userId });
+    const existingUser = await userModel.findOne({ email: req.user.email });
     const product = await productModel.findOne({ _id: id });
 
     const totalCart = product.price * quantity;
@@ -112,7 +112,7 @@ const addProductToCart = async (req, res) => {
           quantity: quantity,
         },
       ],
-      createdBy: existingUser._id.toString(),
+      createdBy: existingUser._id,
       total: totalCart,
     });
 
