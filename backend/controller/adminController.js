@@ -42,7 +42,7 @@ const loginAdmin = async (req, res) => {
   const { email, password } = req.body;
 
   if (!email) {
-    return res.status(401);
+    return res.status(401).json({ msg: "please fill email" });
   }
   try {
     const isAdminExist = await adminModel.findOne({ email: email });
