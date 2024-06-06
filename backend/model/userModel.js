@@ -26,7 +26,6 @@ const userSchema = new Schema({
   role: {
     enum: ["admin", "member"],
     default: "user",
-    required: [true, "please fill role"],
   },
   cart: [
     {
