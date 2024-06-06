@@ -68,3 +68,5 @@ const loginAdmin = async (req, res) => {
     return res.status(501).json({ msg: "internal server error" });
   }
 };
+
+export { registerAdmin, loginAdmin };

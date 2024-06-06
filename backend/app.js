@@ -1,11 +1,20 @@
 import "dotenv/config";
 import express from "express";
 import { connectDB } from "./db/connectDB.js";
+import cors from "cors";
+import { adminRouter } from "./routes/adminRoutes.js";
 const app = express();
 
-app.get("/", function (req, res) {
-  return res.status(200).json({ msg: "Hello world" });
-});
+app.use(
+  cors({
+    origin: "*",
+  })
+);
+
+app.use(express.json());
+
+//admin route
+app.use("/api/pkmk-javac/admin", adminRouter);
 
 async function startServer() {
   try {
