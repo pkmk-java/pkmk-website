@@ -4,6 +4,7 @@ import { hashPasswordHandler } from "../helper/hashPassword";
 import { passwordCompareHandler } from "../helper/passwordCompare";
 import { jwtGeneratorHandler } from "../helper/jwtGenerator";
 import { productModel } from "../model/productModel";
+import { cartModel } from "../model/cartModel";
 
 const registerUser = async (req, res) => {
   const { username, email, password } = req.body;
@@ -90,11 +91,41 @@ const getAllProduct = async (req, res) => {
 };
 
 const addProductToCart = async (req, res) => {
+  const { id } = req.params;
+  const { quantity } = req.body;
+
+  if (!quantity) {
+    return res.status(401).json({ msg: "please add at least one product" });
+  }
+
   try {
+    const existingUser = await userModel.findOne({ _id: req.user.userId });
+    const product = await productModel.findOne({ _id: id });
+
+    const totalCart = product.price * quantity;
+    console.log(totalCart);
+
+    const cartBluerprint = new cartModel({
+      product: [
+        {
+          productId: id,
+          quantity: quantity,
+        },
+      ],
+      createdBy: existingUser._id,
+      total: totalCart,
+    });
+
+    const cart = await cartModel.create(cartBluerprint);
+    existingUser.cart.push({ cartId: cart._id });
+
+    await existingUser.save();
+
+    return res.status(200).json({ msg: "success add item to cart", cart });
   } catch (error) {
     console.log(error);
     return res.status(501).json({ msg: "internal server error" });
   }
 };
 
-export { loginUser, registerUser, getAllProduct };
+export { loginUser, registerUser, getAllProduct, addProductToCart };
