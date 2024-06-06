@@ -1,6 +1,7 @@
 import { hashPasswordHandler } from "../helper/hashPassword.js";
 import { jwtGeneratorHandler } from "../helper/jwtGenerator.js";
 import { adminModel } from "../model/adminModel.js";
+import { productModel } from "../model/productModel.js";
 
 const registerAdmin = async (req, res) => {
   const { username, email, password } = req.body;
@@ -63,6 +64,30 @@ const loginAdmin = async (req, res) => {
         httpOnly: true,
       })
       .json({ msg: "success login admin", isAdminExist });
+  } catch (error) {
+    console.log(error);
+    return res.status(501).json({ msg: "internal server error" });
+  }
+};
+
+const createProduct = async (req, res) => {
+  const { productName, description, price, stock } = req.body;
+
+  const requiredField = ["productName", "description", "price", "stock"];
+
+  for (const field of requiredField) {
+    if (!req.body[field]) {
+      return res.status(401).json({ msg: `please fill ${field} field` });
+    }
+  }
+
+  try {
+    const productBlueprint = new productModel({
+      productName: productName,
+      description: description,
+      price: price,
+      stock: stock,
+    });
   } catch (error) {
     console.log(error);
     return res.status(501).json({ msg: "internal server error" });
