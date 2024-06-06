@@ -1,3 +1,4 @@
+import api from "../../utils/api"
 
 const ActionType = {
   "SET_AUTH_USER": "SET_AUTH_USER",
@@ -20,9 +21,20 @@ function unsetAuthUserActionCreator() {
     }
   }
 }
+function asyncSetAuthUser({ email, password }) {
+  return async () => {
+    try {
+      await api.login(email, password)
+
+    } catch (err) {
+      console.log(err.message)
+    }
+  }
+}
 
 export {
   ActionType,
   setAuthUserActionCreator,
-  unsetAuthUserActionCreator
+  unsetAuthUserActionCreator,
+  asyncSetAuthUser
 }

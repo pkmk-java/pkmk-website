@@ -1,24 +1,28 @@
 
 const api = (() => {
-  const BASE_URL = ""
+  const BASE_URL = "https://pkmk-website.vercel.app"
 
   async function _fetchWithAuth(url, options = {}) {
+    // const token = getCookie("token")
     return fetch(url, {
       ...options,
       headers: {
-        ...options.headers
-      }
+        ...options.headers,
+
+        // Authorization: `Bearer ${token}`
+      },
+      credentials: 'include'
     }
     )
   }
-  // function putAccessToken(token) {
-  //   return localStorage.setItem("token", token)
+  // function getCookie(name) {
+  //   const value = `; ${document.cookie}`;
+  //   const parts = value.split(`; ${name}=`);
+  //   if (parts.length === 2) return parts.pop().split(';').shift();
   // }
-  // function getAccessToken() {
-  //   return localStorage.getItem("token")
-  // }
+
   async function login({ email, password }) {
-    const response = await fetch(`${BASE_URL}`,
+    const response = await fetch(`${BASE_URL}/api/pkmk-javac/admin/login`,
       {
         method: "POST",
         headers: {
@@ -26,17 +30,16 @@ const api = (() => {
         },
         body: JSON.stringify({
           email, password
-        })
+        }),
+        credentials: "include"
       }
     )
-    const responseJson = await response.json()
-
+    console.log(response)
     // const { data } = responseJson
     // return data
-    return responseJson
   }
   async function register({ username, email, password }) {
-    const response = await fetch(`${BASE_URL}`, {
+    const response = await fetch(`${BASE_URL}/api/pkmk-javac/admin/register`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -46,14 +49,11 @@ const api = (() => {
       })
     })
     const responseJson = await response.json()
-    // const { data: { user } } = responseJson
-    // return user
     return responseJson
   }
+
   return {
     _fetchWithAuth,
-    // putAccessToken,
-    // getAccessToken,
     login,
     register
   }
