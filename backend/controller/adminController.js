@@ -1,6 +1,6 @@
-import { hashPasswordHandler } from "../helper/hashPassword";
-import { jwtGeneratorHandler } from "../helper/jwtGenerator";
-import { adminModel } from "../model/adminModel";
+import { hashPasswordHandler } from "../helper/hashPassword.js";
+import { jwtGeneratorHandler } from "../helper/jwtGenerator.js";
+import { adminModel } from "../model/adminModel.js";
 
 const registerAdmin = async (req, res) => {
   const { username, email, password } = req.body;
