@@ -128,4 +128,14 @@ const addProductToCart = async (req, res) => {
   }
 };
 
+const deleteProductFromCart = async (req, res) => {
+  const { id: cartId } = req.params;
+  try {
+    const existingUser = await userModel.findOne({ _id: req.user.userId });
+    const cart = await cartModel.findOne({ _id: cartId });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export { loginUser, registerUser, getAllProduct, addProductToCart };
