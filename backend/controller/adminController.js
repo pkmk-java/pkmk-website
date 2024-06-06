@@ -54,10 +54,10 @@ const loginAdmin = async (req, res) => {
       return res.status(404).json({ msg: "admin not found" });
     }
 
-    const isPassCorrect = passwordCompareHandler(
-      password,
-      isAdminExist.password
-    );
+    const isPassCorrect = await passwordCompareHandler({
+      userPass: password,
+      dataPass: isAdminExist.password,
+    });
     console.log(isPassCorrect);
 
     if (!isPassCorrect) {
