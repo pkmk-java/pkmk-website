@@ -1,13 +1,9 @@
 import { hashPasswordHandler } from "../helper/hashPassword.js";
 import { jwtGeneratorHandler } from "../helper/jwtGenerator.js";
-<<<<<<< HEAD
-import { adminModel } from "../model/adminModel.js";
-=======
 import { passwordCompareHandler } from "../helper/passwordCompare.js";
 import { adminModel } from "../model/adminModel.js";
 import { productModel } from "../model/productModel.js";
 import { v2 as cloudinary } from "cloudinary";
->>>>>>> djamet
 
 const registerAdmin = async (req, res) => {
   const { username, email, password } = req.body;
