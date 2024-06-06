@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  createProduct,
   deleteProduct,
   loginAdmin,
   registerAdmin,
@@ -11,7 +12,12 @@ const router = express.Router();
 
 router.post("/register", registerAdmin);
 router.post("/login", loginAdmin);
-router.post("/create-product", adminMiddleware, upload.single("image"));
+router.post(
+  "/create-product",
+  adminMiddleware,
+  upload.single("image"),
+  createProduct
+);
 router.delete("/delete-product/:id", adminMiddleware, deleteProduct);
 router.patch(
   "/update-product/:id",

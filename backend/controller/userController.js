@@ -3,6 +3,7 @@ import { userModel } from "../model/userModel";
 import { hashPasswordHandler } from "../helper/hashPassword";
 import { passwordCompareHandler } from "../helper/passwordCompare";
 import { jwtGeneratorHandler } from "../helper/jwtGenerator";
+import { productModel } from "../model/productModel";
 
 const registerUser = async (req, res) => {
   const { username, email, password } = req.body;
@@ -49,10 +50,10 @@ const loginUser = async (req, res) => {
       return res.status(404).json({ msg: "email not registered yet" });
     }
 
-    const isPassCorrect = passwordCompareHandler(
-      password,
-      isUserExist.password
-    );
+    const isPassCorrect = passwordCompareHandler({
+      userPass: password,
+      dataPass: isUserExist.password,
+    });
     console.log(isPassCorrect);
 
     if (!isPassCorrect) {
@@ -76,3 +77,24 @@ const loginUser = async (req, res) => {
     return res.status(501).json({ msg: "internal server error" });
   }
 };
+
+const getAllProduct = async (req, res) => {
+  try {
+    const product = await productModel.find({});
+
+    return res.status(200).json({ msg: "success", product });
+  } catch (error) {
+    console.log(error);
+    return res.status(501).json({ msg: "internal server error" });
+  }
+};
+
+const addProductToCart = async (req, res) => {
+  try {
+  } catch (error) {
+    console.log(error);
+    return res.status(501).json({ msg: "internal server error" });
+  }
+};
+
+export { loginUser, registerUser, getAllProduct };

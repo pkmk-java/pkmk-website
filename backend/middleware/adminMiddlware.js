@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { adminModel } from "../model/adminModel.js";
 
 export const adminMiddleware = async (req, res, next) => {
-  const headers = req.header.authorization;
+  const headers = req.headers.authorization;
 
   if (!headers || !headers.startsWith("Bearer ")) {
     return res.status(401).json({ msg: "please login first" });
@@ -15,7 +15,6 @@ export const adminMiddleware = async (req, res, next) => {
     const data = jwt.verify(token, process.env.JWT_SECRET);
     const isAdmin = await adminModel.findOne({
       email: data.email,
-      _id: data._id,
     });
     console.log(isAdmin);
 
