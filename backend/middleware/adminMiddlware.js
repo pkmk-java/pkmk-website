@@ -1,6 +1,6 @@
 import express from "express";
-import { adminModel } from "../model/adminModel.js";
 import jwt from "jsonwebtoken";
+import { adminModel } from "../model/adminModel.js";
 
 export const adminMiddleware = async (req, res, next) => {
   const headers = req.header.authorization;
