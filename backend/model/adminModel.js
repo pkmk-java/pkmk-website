@@ -20,6 +20,10 @@ const adminSchema = new Schema({
     type: String,
     default: "",
   },
+  isAdmin: {
+    type: Boolean,
+    default: true,
+  },
   createdProdcut: [
     {
       productId: {

@@ -22,6 +22,10 @@ const userSchema = new Schema({
     type: String,
     default: "",
   },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
   cart: [
     {
       cartId: {
