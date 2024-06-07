@@ -15,11 +15,12 @@ cloudinary.config({
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "*"],
+    origin: "*",
   })
 );
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 //admin route
 app.use("/api/pkmk-javac/admin", adminRouter);
