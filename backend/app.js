@@ -13,7 +13,11 @@ cloudinary.config({
   api_secret: process.env.API_SECRET,
 });
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 app.use(express.json());
 
