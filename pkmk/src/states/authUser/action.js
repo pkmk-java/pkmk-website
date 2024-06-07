@@ -1,5 +1,4 @@
 import api from "../../utils/api"
-
 const ActionType = {
   "SET_AUTH_USER": "SET_AUTH_USER",
   "UNSET_AUTH_USER": "UNSET_AUTH_USER"
@@ -22,10 +21,11 @@ function unsetAuthUserActionCreator() {
   }
 }
 function asyncSetAuthUser({ email, password }) {
-  return async () => {
+  return async (dispatch) => {
     try {
-      await api.login(email, password)
-
+      const response = await api.loginUser({ email, password })
+      api.putAccessToken(response.token)
+      dispatch(setAuthUserActionCreator(response.isUserExist))
     } catch (err) {
       console.log(err.message)
     }

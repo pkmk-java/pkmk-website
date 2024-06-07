@@ -1,32 +1,47 @@
-
+import Cookies from "js-cookie"
 const api = (() => {
   const BASE_URL = "https://pkmk-website.vercel.app"
 
-  async function _fetchWithAuth(url, options = {}) {
-    // const token = getCookie("token")
-    return fetch(url, {
-      ...options,
-      headers: {
-        ...options.headers,
-
-        // Authorization: `Bearer ${token}`
-      },
-      credentials: 'include'
-    }
-    )
+  function putAccessToken(token) {
+    return Cookies.set("_token", token)
   }
-  // function getCookie(name) {
-  //   const value = `; ${document.cookie}`;
-  //   const parts = value.split(`; ${name}=`);
-  //   if (parts.length === 2) return parts.pop().split(';').shift();
-  // }
+  function getAccessToken() {
+    return Cookies.get("_token")
+  }
+  async function loginAdmin({ email, password }) {
+    const response = await fetch(`${BASE_URL}/api/pkmk-javac/admin/user`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email, password
+      }),
+    })
 
-  async function login({ email, password }) {
-    const response = await fetch(`${BASE_URL}/api/pkmk-javac/admin/login`,
+    const responseJson = await response.json()
+    return responseJson
+  }
+  async function registerAdmin({ username, email, password }) {
+    const response = await fetch(`${BASE_URL}/api/pkmk-javac/admin/register`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username, email, password
+      })
+    })
+    const responseJson = await response.json()
+
+    return responseJson
+  }
+  async function loginUser({ email, password }) {
+    const response = await fetch(`${BASE_URL}/api/pkmk-javac/user/login`,
       {
         method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           email, password
@@ -34,12 +49,13 @@ const api = (() => {
         credentials: "include"
       }
     )
-    console.log(response)
-    // const { data } = responseJson
-    // return data
+    const responseJson = await response.json()
+    const { isUserExist, token } = responseJson
+    return { isUserExist, token }
   }
-  async function register({ username, email, password }) {
-    const response = await fetch(`${BASE_URL}/api/pkmk-javac/admin/register`, {
+
+  async function registerUser({ username, email, password }) {
+    const response = await fetch(`${BASE_URL}/api/pkmk-javac/user/register`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -53,9 +69,12 @@ const api = (() => {
   }
 
   return {
-    _fetchWithAuth,
-    login,
-    register
+    loginUser,
+    registerUser,
+    loginAdmin,
+    registerAdmin,
+    putAccessToken,
+    getAccessToken
   }
 })()
 export default api

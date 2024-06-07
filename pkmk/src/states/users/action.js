@@ -6,7 +6,7 @@ import api from "../../utils/api"
 function asyncRegisterUser({ username, email, password }) {
   return async () => {
     try {
-      await api.register({ username, email, password })
+      await api.registerUser({ username, email, password })
     } catch (err) {
       console.log(err.message)
     }
