@@ -11,7 +11,11 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.5",
+<<<<<<< HEAD
     "js-cookie": "^3.0.5",
+=======
+    "axios": "^1.7.2",
+>>>>>>> a261d75 (fix)
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^9.1.2",
