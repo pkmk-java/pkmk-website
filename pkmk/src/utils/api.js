@@ -1,16 +1,7 @@
-<<<<<<< HEAD
 import Cookies from "js-cookie"
-=======
-import axios from "axios";
-
->>>>>>> a261d75 (fix)
 const api = (() => {
   const BASE_URL = "https://pkmk-website.vercel.app";
 
-<<<<<<< HEAD
-  function putAccessToken(token) {
-    return Cookies.set("_token", token)
-=======
   async function _fetchWithAuth(url, options = {}) {
     // const token = getCookie("token")
     return fetch(url, {
@@ -22,7 +13,6 @@ const api = (() => {
       },
       credentials: "include",
     });
->>>>>>> a261d75 (fix)
   }
   function getAccessToken() {
     return Cookies.get("_token")
@@ -38,7 +28,6 @@ const api = (() => {
       }),
     })
 
-<<<<<<< HEAD
     const responseJson = await response.json()
     return responseJson
   }
@@ -98,44 +87,3 @@ const api = (() => {
   }
 })()
 export default api
-=======
-  async function login({ email, password }) {
-    try {
-      const response = await axios.post(
-        `${BASE_URL}/api/pkmk-javac/admin/login`,
-        {
-          email: email,
-          password: password,
-        }
-      );
-      const result = await response.data;
-      console.log(result);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  async function register({ username, email, password }) {
-    try {
-      const response = await axios.post(
-        `${BASE_URL}/api/pkmk-javac/admin/login`,
-        {
-          username: username,
-          email: email,
-          password: password,
-        }
-      );
-      const result = await response.data;
-      console.log(result);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  return {
-    _fetchWithAuth,
-    login,
-    register,
-  };
-})();
-export default api;
->>>>>>> a261d75 (fix)
