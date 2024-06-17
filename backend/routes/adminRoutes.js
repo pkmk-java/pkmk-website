@@ -3,6 +3,7 @@ import {
   createProduct,
   deleteProduct,
   getAllProduct,
+  getCurrentAdmin,
   loginAdmin,
   registerAdmin,
   updateProduct,
@@ -12,6 +13,7 @@ import { adminMiddleware } from "../middleware/adminMiddlware.js";
 import { upload } from "../middleware/multer.js";
 const router = express.Router();
 
+router.get("/me", adminMiddleware, getCurrentAdmin);
 router.get("/get-all-product", adminMiddleware, getAllProduct);
 router.post("/register", registerAdmin);
 router.post("/login", loginAdmin);

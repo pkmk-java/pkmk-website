@@ -6,6 +6,18 @@ import { productModel } from "../model/productModel.js";
 import { v2 as cloudinary } from "cloudinary";
 import { userModel } from "../model/userModel.js";
 
+const getCurrentAdmin = async (req, res) => {
+  const admin = req.admin.adminId;
+  try {
+    const currentAdmin = await adminModel.findOne({ _id: admin });
+
+    return res.status(200).json({ msg: "success", currentAdmin });
+  } catch (error) {
+    console.log(error);
+    return res.status(501).json({ msg: "internal server error" });
+  }
+};
+
 const registerAdmin = async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -237,4 +249,5 @@ export {
   updateProduct,
   getAllProduct,
   updateUserToAdmin,
+  getCurrentAdmin,
 };

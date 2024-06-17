@@ -21,8 +21,8 @@ export const userMiddleware = async (req, res, next) => {
     }
 
     req.user = {
-      userId: data._id,
-      email: data.email,
+      userId: user._id.toString(),
+      email: user.email,
     };
     next();
   } catch (error) {

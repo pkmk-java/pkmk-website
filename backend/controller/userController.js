@@ -7,6 +7,20 @@ import { productModel } from "../model/productModel.js";
 import { cartModel } from "../model/cartModel.js";
 import { adminModel } from "../model/adminModel.js";
 
+const getCurrentUser = async (req, res) => {
+  const userId = req.user.userId;
+  console.log(userId);
+
+  try {
+    const user = await userModel.findOne({ _id: userId });
+
+    return res.status(200).json({ msg: "success", user });
+  } catch (error) {
+    console.log(error);
+    return res.status(501).json({ msg: "internal server error" });
+  }
+};
+
 const registerUser = async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -145,4 +159,10 @@ const deleteProductFromCart = async (req, res) => {
   }
 };
 
-export { loginUser, registerUser, getAllProduct, addProductToCart };
+export {
+  loginUser,
+  registerUser,
+  getAllProduct,
+  addProductToCart,
+  getCurrentUser,
+};
