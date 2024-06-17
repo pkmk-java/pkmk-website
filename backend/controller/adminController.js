@@ -76,7 +76,7 @@ const loginAdmin = async (req, res) => {
         expires: new Date(Date.now() + 900000),
         httpOnly: true,
       })
-      .json({ msg: "success login admin", isAdminExist });
+      .json({ msg: "success login admin", isAdminExist, token });
   } catch (error) {
     console.log(error);
     return res.status(501).json({ msg: "internal server error" });

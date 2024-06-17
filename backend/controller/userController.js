@@ -46,7 +46,9 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const isUserExist = await userModel.findOne({ email: email });
+    const isUserExist = await userModel
+      .findOne({ email: email })
+      .select(["username", "password", "email", "isAdmin"]);
 
     if (!isUserExist) {
       return res.status(404).json({ msg: "email not registered yet" });
