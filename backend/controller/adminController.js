@@ -4,6 +4,19 @@ import { passwordCompareHandler } from "../helper/passwordCompare.js";
 import { adminModel } from "../model/adminModel.js";
 import { productModel } from "../model/productModel.js";
 import { v2 as cloudinary } from "cloudinary";
+import { userModel } from "../model/userModel.js";
+
+const getCurrentAdmin = async (req, res) => {
+  const admin = req.admin.adminId;
+  try {
+    const currentAdmin = await adminModel.findOne({ _id: admin });
+
+    return res.status(200).json({ msg: "success", currentAdmin });
+  } catch (error) {
+    console.log(error);
+    return res.status(501).json({ msg: "internal server error" });
+  }
+};
 
 const registerAdmin = async (req, res) => {
   const { username, email, password } = req.body;
@@ -75,7 +88,7 @@ const loginAdmin = async (req, res) => {
         expires: new Date(Date.now() + 900000),
         httpOnly: true,
       })
-      .json({ msg: "success login admin", isAdminExist });
+      .json({ msg: "success login admin", isAdminExist, token });
   } catch (error) {
     console.log(error);
     return res.status(501).json({ msg: "internal server error" });
@@ -199,6 +212,35 @@ const updateProduct = async (req, res) => {
   }
 };
 
+const updateUserToAdmin = async (req, res) => {
+  const { id: userId } = req.params;
+
+  try {
+    const isAlreadyAdmin = await userModel.findOne({ _id: userId });
+
+    if (!isAlreadyAdmin) {
+      return res.status(404).json({ msg: "user not found" });
+    }
+
+    const checkUser = isAlreadyAdmin.isAdmin === true;
+
+    if (checkUser) {
+      return res.status(401).json({ msg: "user already admin" });
+    }
+
+    const user = await userModel.findOneAndUpdate(
+      { _id: userId },
+      { isAdmin: true },
+      { new: true }
+    );
+
+    return res.status(200).json({ msg: "success", user });
+  } catch (error) {
+    console.log(error);
+    return res.status(501).json({ msg: "internal server error" });
+  }
+};
+
 export {
   registerAdmin,
   loginAdmin,
@@ -206,4 +248,6 @@ export {
   deleteProduct,
   updateProduct,
   getAllProduct,
+  updateUserToAdmin,
+  getCurrentAdmin,
 };

@@ -5,6 +5,21 @@ import { passwordCompareHandler } from "../helper/passwordCompare.js";
 import { jwtGeneratorHandler } from "../helper/jwtGenerator.js";
 import { productModel } from "../model/productModel.js";
 import { cartModel } from "../model/cartModel.js";
+import { adminModel } from "../model/adminModel.js";
+
+const getCurrentUser = async (req, res) => {
+  const userId = req.user.userId;
+  console.log(userId);
+
+  try {
+    const user = await userModel.findOne({ _id: userId });
+
+    return res.status(200).json({ msg: "success", user });
+  } catch (error) {
+    console.log(error);
+    return res.status(501).json({ msg: "internal server error" });
+  }
+};
 
 const registerUser = async (req, res) => {
   const { username, email, password } = req.body;
@@ -45,7 +60,9 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const isUserExist = await userModel.findOne({ email: email });
+    const isUserExist = await userModel
+      .findOne({ email: email })
+      .select(["username", "password", "email", "isAdmin"]);
 
     if (!isUserExist) {
       return res.status(404).json({ msg: "email not registered yet" });
@@ -71,7 +88,12 @@ const loginUser = async (req, res) => {
       .cookie("token", token, {
         expires: new Date(Date.now() + 900000),
       })
-      .json({ msg: "success login user", isUserExist, token });
+      .json({
+        msg: "success login user",
+        isUserExist,
+        isAdmin: isUserExist.isAdmin,
+        token,
+      });
   } catch (error) {
     console.log(error);
     return res.status(501).json({ msg: "internal server error" });
@@ -137,4 +159,10 @@ const deleteProductFromCart = async (req, res) => {
   }
 };
 
-export { loginUser, registerUser, getAllProduct, addProductToCart };
+export {
+  loginUser,
+  registerUser,
+  getAllProduct,
+  addProductToCart,
+  getCurrentUser,
+};
