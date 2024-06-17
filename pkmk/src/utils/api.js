@@ -1,19 +1,11 @@
 // import Cookies from "js-cookie"
 const api = (() => {
-<<<<<<< HEAD
   const BASE_URL = "https://pkmk-website.vercel.app"
   function _fetchWithAuth(url, options = {}) {
-=======
-  const BASE_URL = "https://pkmk-website.vercel.app";
-
-  async function _fetchWithAuth(url, options = {}) {
-    // const token = getCookie("token")
->>>>>>> b785c5c21f2097f3d0a99dafbc95882bac592469
     return fetch(url, {
       ...options,
       headers: {
         ...options.headers,
-<<<<<<< HEAD
         // eslint-disable-next-line no-undef
         Authorization: `Bearer ${getAccessToken()}`
       }
@@ -21,13 +13,6 @@ const api = (() => {
   }
   function putAccessToken(token) {
     return localStorage.setItem("_token", token)
-=======
-
-        // Authorization: `Bearer ${token}`
-      },
-      credentials: "include",
-    });
->>>>>>> b785c5c21f2097f3d0a99dafbc95882bac592469
   }
   function getAccessToken() {
     return localStorage.getItem("_token")
@@ -96,7 +81,7 @@ const api = (() => {
     const responseJson = await response.json()
     const { user, msg } = responseJson
     if (msg !== "success") {
-      throw new Error("Eror")
+      throw new Error("")
     }
     return user
   }
