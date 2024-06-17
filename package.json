@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "react-redux-loading-bar": "^5.0.8"
+  }
+}

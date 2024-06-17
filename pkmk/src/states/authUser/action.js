@@ -25,10 +25,30 @@ function asyncSetAuthUser({ email, password }) {
     try {
       const response = await api.loginUser({ email, password })
       api.putAccessToken(response.token)
-      dispatch(setAuthUserActionCreator(response.isUserExist))
+      const authUser = await api.getProfile()
+      dispatch(setAuthUserActionCreator(authUser))
     } catch (err) {
       console.log(err.message)
+      alert(err.message)
     }
+  }
+}
+function asyncSetAuthAdmin({ email, password }) {
+  return async (dispatch) => {
+    try {
+      const response = await api.loginAdmin({ email, password })
+      dispatch(setAuthUserActionCreator(response))
+      console.log(response)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+}
+
+function unsetAuthUser() {
+  return (dispatch) => {
+    localStorage.removeItem("_token")
+    dispatch(unsetAuthUserActionCreator())
   }
 }
 
@@ -36,5 +56,7 @@ export {
   ActionType,
   setAuthUserActionCreator,
   unsetAuthUserActionCreator,
-  asyncSetAuthUser
+  asyncSetAuthUser,
+  asyncSetAuthAdmin,
+  unsetAuthUser,
 }
