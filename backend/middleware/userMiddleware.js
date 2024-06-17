@@ -11,7 +11,8 @@ export const userMiddleware = async (req, res, next) => {
   const token = headers.split(" ")[1];
   try {
     const data = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await userModel.findOne({ email: data.email });
+    console.log(data);
+    const user = await userModel.findOne({ _id: data.adminId });
     console.log(user);
 
     if (!user) {
