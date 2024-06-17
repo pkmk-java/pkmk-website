@@ -6,6 +6,7 @@ import {
   loginAdmin,
   registerAdmin,
   updateProduct,
+  updateUserToAdmin,
 } from "../controller/adminController.js";
 import { adminMiddleware } from "../middleware/adminMiddlware.js";
 import { upload } from "../middleware/multer.js";
@@ -27,5 +28,6 @@ router.patch(
   upload.single("image"),
   updateProduct
 );
+router.patch("/update-user/:id", adminMiddleware, updateUserToAdmin);
 
 export const adminRouter = router;

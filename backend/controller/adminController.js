@@ -4,6 +4,7 @@ import { passwordCompareHandler } from "../helper/passwordCompare.js";
 import { adminModel } from "../model/adminModel.js";
 import { productModel } from "../model/productModel.js";
 import { v2 as cloudinary } from "cloudinary";
+import { userModel } from "../model/userModel.js";
 
 const registerAdmin = async (req, res) => {
   const { username, email, password } = req.body;
@@ -199,6 +200,35 @@ const updateProduct = async (req, res) => {
   }
 };
 
+const updateUserToAdmin = async (req, res) => {
+  const { id: userId } = req.params;
+
+  try {
+    const isAlreadyAdmin = await userModel.findOne({ _id: userId });
+
+    if (!isAlreadyAdmin) {
+      return res.status(404).json({ msg: "user not found" });
+    }
+
+    const checkUser = isAlreadyAdmin.isAdmin === true;
+
+    if (checkUser) {
+      return res.status(401).json({ msg: "user already admin" });
+    }
+
+    const user = await userModel.findOneAndUpdate(
+      { _id: userId },
+      { isAdmin: true },
+      { new: true }
+    );
+
+    return res.status(200).json({ msg: "success", user });
+  } catch (error) {
+    console.log(error);
+    return res.status(501).json({ msg: "internal server error" });
+  }
+};
+
 export {
   registerAdmin,
   loginAdmin,
@@ -206,4 +236,5 @@ export {
   deleteProduct,
   updateProduct,
   getAllProduct,
+  updateUserToAdmin,
 };

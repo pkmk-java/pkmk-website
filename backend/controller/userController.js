@@ -5,6 +5,7 @@ import { passwordCompareHandler } from "../helper/passwordCompare.js";
 import { jwtGeneratorHandler } from "../helper/jwtGenerator.js";
 import { productModel } from "../model/productModel.js";
 import { cartModel } from "../model/cartModel.js";
+import { adminModel } from "../model/adminModel.js";
 
 const registerUser = async (req, res) => {
   const { username, email, password } = req.body;
@@ -71,7 +72,12 @@ const loginUser = async (req, res) => {
       .cookie("token", token, {
         expires: new Date(Date.now() + 900000),
       })
-      .json({ msg: "success login user", isUserExist, token });
+      .json({
+        msg: "success login user",
+        isUserExist,
+        isAdmin: isUserExist.isAdmin,
+        token,
+      });
   } catch (error) {
     console.log(error);
     return res.status(501).json({ msg: "internal server error" });
