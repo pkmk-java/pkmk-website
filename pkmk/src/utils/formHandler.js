@@ -7,6 +7,7 @@ export const formHandler = (type, data, setStates) => {
             setStates(data)
             break;
         case "username":
-            setStates(data)
+            setStates(data);
+            break;
     }
 }
