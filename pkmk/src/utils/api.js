@@ -1,6 +1,6 @@
 // import Cookies from "js-cookie"
 const api = (() => {
-  const BASE_URL = "https://pkmk-website.vercel.app"
+  const BASE_URL = "http://localhost:3000"
   function _fetchWithAuth(url, options = {}) {
     return fetch(url, {
       ...options,

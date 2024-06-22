@@ -3,6 +3,7 @@ import { userModel } from "../model/userModel.js";
 
 export const userMiddleware = async (req, res, next) => {
   const headers = req.headers.authorization;
+  console.log(headers)
 
   if (!headers || !headers.startsWith("Bearer ")) {
     return res.status(401).json({ msg: "please login first" });
@@ -22,7 +23,7 @@ export const userMiddleware = async (req, res, next) => {
     }
 
     req.user = {
-      userId: user._id.toString(),
+      userId: user.adminId.toString(),
       email: user.email,
     };
     next();
@@ -30,4 +31,3 @@ export const userMiddleware = async (req, res, next) => {
     console.log(error);
   }
 };
-``;

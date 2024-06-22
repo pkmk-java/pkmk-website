@@ -1,7 +1,7 @@
 import { cartModel } from "../model/cartModel.js";
 import { productModel } from "../model/productModel.js";
 
-const getAllProduct = async (req, res) => {
+const getAllProductGuest = async (req, res) => {
   try {
     const product = await productModel.find({});
 
@@ -107,4 +107,4 @@ const getGuestCart = async (req, res) => {
   }
 };
 
-export { getAllProduct, addToCart, getGuestCart, GuestRemoveItemFromCart };
+export { getAllProductGuest, addToCart, getGuestCart, GuestRemoveItemFromCart };

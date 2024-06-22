@@ -1,16 +1,10 @@
-import { Link } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
-import { unsetAuthUser } from "../states/authUser/action"
+import { Link } from "react-router-dom";
 function Navbar() {
-  const authUser = useSelector(state => state.authUser)
-  const dispatch = useDispatch()
-
-  function onSignOut() {
-    dispatch(unsetAuthUser())
-  }
   return (
-    <nav className="w-full flex items-center justify-between bg-[#ECB176] py-3 px-3 fixed top-0 right-0 left-0">
-      <h1>Logo</h1>
+    <nav className="w-full flex items-center justify-between bg-[#ECB176] h-[100px] pl-8 pr-8">
+      <div className=" h-[150px] w-auto">
+        <img className=" w-full h-full object-" src="/logo.png" />
+      </div>
       <ul className="flex items-center justify-center gap-x-4">
         <li>
           <Link to="/">Home</Link>
@@ -24,22 +18,13 @@ function Navbar() {
         <li>
           <Link to="/contact">Contact</Link>
         </li>
-        {authUser?.isAdmin &&
-          (<li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>)}
       </ul>
       <ul>
-        {authUser !== null ? (
-          <button type="button" onClick={() => onSignOut()}>sign Out</button>
-        ) : (
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-        )}
+        <li>
+          <Link to="/login">Log out</Link>
+        </li>
       </ul>
-
     </nav>
-  )
+  );
 }
-export default Navbar
+export default Navbar;

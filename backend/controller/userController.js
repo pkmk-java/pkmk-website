@@ -59,6 +59,11 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
+
+  if (!email) {
+    return res.status(400).json({msg: "please fill email"})
+  }
+
   try {
     const isUserExist = await userModel
       .findOne({ email: email })
@@ -79,7 +84,7 @@ const loginUser = async (req, res) => {
     }
 
     const token = jwtGeneratorHandler({
-      _id: isUserExist._id.toString(),
+      adminId: isUserExist._id.toString(),
       email: isUserExist.email,
     });
 
