@@ -5,7 +5,7 @@ import { IoCartOutline } from "react-icons/io5";
 import { AiOutlineUserDelete } from "react-icons/ai";
 import { IoSettingsOutline } from "react-icons/io5";
 import { Link, Outlet, useLocation } from "react-router-dom";
-
+import { BeatLoader } from "react-spinners";
 export default function DashboardAdminComponent() {
   const [product, setProduct] = useState([]);
   const [totalProduct, setTotalProduct] = useState(0);
@@ -18,6 +18,7 @@ export default function DashboardAdminComponent() {
   const location = useLocation();
   const current = location.pathname;
   console.log(current);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [defaultBG, setDefaultBG] = useState({
     totalAdmin: "bg-slate-50 text-black",
@@ -27,6 +28,7 @@ export default function DashboardAdminComponent() {
 
   const getStatistic = async () => {
     try {
+      setIsLoading(true);
       const response = await axios.get(
         "http://localhost:3000/api/pkmk-javac/admin/get-statistic",
         {
@@ -40,6 +42,9 @@ export default function DashboardAdminComponent() {
       setTotalAdmin(result.totalAdmin);
       setTotalProduct(result.totalProduct);
       setTotalCustomer(result.totalCustomer);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 3000);
     } catch (error) {
       console.log(error);
     }
@@ -89,7 +94,13 @@ export default function DashboardAdminComponent() {
               <IoCartOutline size={20} />
             </div>
           </div>
-          <p className=" text-sm">{totalProduct} product</p>
+          {isLoading ? (
+            <p>
+              <BeatLoader color="white" size={9} />
+            </p>
+          ) : (
+            <p>{totalProduct} product</p>
+          )}
         </Link>
         <Link
           to={"/landing-admin/dashboard/total-customer"}
@@ -101,7 +112,13 @@ export default function DashboardAdminComponent() {
               <AiOutlineUserDelete size={20} />
             </div>
           </div>
-          <p className=" text-sm">{totalCustomer} customer</p>
+          {isLoading ? (
+            <p>
+              <BeatLoader color="black" size={9} />
+            </p>
+          ) : (
+            <p>{totalCustomer} customer</p>
+          )}
         </Link>
         <Link
           to={"/landing-admin/dashboard/total-admin"}
@@ -113,7 +130,13 @@ export default function DashboardAdminComponent() {
               <IoSettingsOutline size={20} />
             </div>
           </div>
-          <p className=" text-sm">{totalAdmin} admin</p>
+          {isLoading ? (
+            <p>
+              <BeatLoader color="black" size={9} />
+            </p>
+          ) : (
+            <p>{totalAdmin} admin</p>
+          )}
         </Link>
       </div>
       <div>

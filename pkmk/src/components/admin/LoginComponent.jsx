@@ -29,7 +29,7 @@ export default function AdminLoginComponent() {
       Cookies.set("adminToken", result.token);
       setEmail("");
       setPassword("");
-      navigate("/landing-admin/dashboard");
+      navigate("/landing-admin/dashboard/total-product");
     } catch (error) {
       console.log(error);
       setEmail("");
