@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Cookies from "js-cookie";
 
 export default function LandingComponent() {
-  const token = Cookies.get("toke");
+  const token = Cookies.get("token");
   console.log(token);
 
   const getAllProduct = async () => {

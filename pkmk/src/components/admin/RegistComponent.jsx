@@ -1,10 +1,9 @@
 import { useState } from "react";
-import useInput from "../hooks/useInput";
 import { Link, useNavigate } from "react-router-dom";
-import { formHandler } from "../utils/formHandler";
 import axios from "axios";
+import { formHandler } from "../../utils/formHandler";
 // eslint-disable-next-line no-unused-vars, react/prop-types
-function RegisterInput({ register }) {
+function AdminRegisterComponent({ register }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -109,4 +108,4 @@ function RegisterInput({ register }) {
     </form>
   );
 }
-export default RegisterInput;
+export default AdminRegisterComponent;

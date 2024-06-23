@@ -76,7 +76,7 @@ function LoginInput({ login }) {
       </button>
       <p>
         Belum punya akun?{" "}
-        <Link to="/register" className="text-green-600">
+        <Link to="/auth/register" className="text-green-600">
           Buat akun
         </Link>
       </p>
