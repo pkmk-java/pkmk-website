@@ -6,6 +6,9 @@ export default {
       fontFamily: {
         sora: ["Sora", "sans-serif"],
         montserat: ["Montserrat", "sans-serif"],
+        raleway: ["Raleway", "sans-serif"],
+        openSans: ["Open Sans", "sans-serif"],
+        lato: ["Lato", "sans-serif"],
       },
     },
   },

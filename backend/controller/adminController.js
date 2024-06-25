@@ -241,6 +241,49 @@ const updateUserToAdmin = async (req, res) => {
   }
 };
 
+export const getStatistic = async (req, res) => {
+  try {
+    const product = await productModel.find({});
+    const admin = await adminModel.find({});
+    const customer = await userModel.find({});
+
+    const totalProduct = product.length;
+    const totalAdmin = admin.length;
+    const totalCustomer = customer.length;
+
+    return res.status(200).json({
+      msg: "success",
+      totalProduct: totalProduct,
+      totalAdmin: totalAdmin,
+      totalCustomer: totalCustomer,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(501).json({ msg: "internal server error" });
+  }
+};
+
+const getAllUser = async (req, res) => {
+  try {
+    const user = await userModel.find({});
+
+    return res.status(200).json({ msg: "success", user });
+  } catch (error) {
+    console.log(error);
+    return res.status(501).json({ msg: "internal server error" });
+  }
+};
+const getAllAdmin = async (req, res) => {
+  try {
+    const admin = await adminModel.find({});
+
+    return res.status(200).json({ msg: "success", admin });
+  } catch (error) {
+    console.log(error);
+    return res.status(501).json({ msg: "internal server error" });
+  }
+};
+
 export {
   registerAdmin,
   loginAdmin,
@@ -250,4 +293,6 @@ export {
   getAllProduct,
   updateUserToAdmin,
   getCurrentAdmin,
+  getAllAdmin,
+  getAllUser,
 };

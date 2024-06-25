@@ -2,8 +2,11 @@ import express from "express";
 import {
   createProduct,
   deleteProduct,
+  getAllAdmin,
   getAllProduct,
+  getAllUser,
   getCurrentAdmin,
+  getStatistic,
   loginAdmin,
   registerAdmin,
   updateProduct,
@@ -14,6 +17,7 @@ import { upload } from "../middleware/multer.js";
 const router = express.Router();
 
 router.get("/me", adminMiddleware, getCurrentAdmin);
+router.get("/get-statistic", adminMiddleware, getStatistic);
 router.get("/get-all-product", adminMiddleware, getAllProduct);
 router.post("/register", registerAdmin);
 router.post("/login", loginAdmin);
@@ -31,5 +35,7 @@ router.patch(
   updateProduct
 );
 router.patch("/update-user/:id", adminMiddleware, updateUserToAdmin);
+router.get("/get-all-user", adminMiddleware, getAllUser);
+router.get("/get-all-admin", adminMiddleware, getAllAdmin);
 
 export const adminRouter = router;

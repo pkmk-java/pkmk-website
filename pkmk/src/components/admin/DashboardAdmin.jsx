@@ -79,11 +79,14 @@ export default function DashboardAdminComponent() {
       });
   }, [current]);
   return (
-    <div className=" h-full max-w-[800px] border-slate-300 border-r flex flex-col pl-9 pr-9 font-sora">
-      <div className=" basis-1/12 flex items-center justify-start">
-        <h1 className=" font-extrabold text-2xl">Dashboard</h1>
+    <div className=" basis-11/12 pt-10 h-full w-[800px] flex flex-col font-raleway">
+      <div className=" basis-1/12 flex flex-col gap-1 items-start justify-center">
+        <h1 className=" text-3xl font-extrabold">Dashboard</h1>
+        <p className=" text-slate-500">
+          Welcome to dashboard, click on every total to check
+        </p>
       </div>
-      <div className=" basis-3/12 flex items-center gap-9 mb-9">
+      <div className=" basis-3/12 flex gap-6 w-full pt-5">
         <Link
           to={"/landing-admin/dashboard/total-product"}
           className={`w-full h-[130px] rounded-2xl border ${defaultBG.totalProduct} p-3 flex flex-col justify-between`}
@@ -125,7 +128,7 @@ export default function DashboardAdminComponent() {
           className={`w-full h-[130px] rounded-2xl border ${defaultBG.totalAdmin} p-3 flex flex-col justify-between`}
         >
           <div className=" flex justify-between items-center">
-            <h1 className=" font-extrabold">Total Product</h1>
+            <h1 className=" font-extrabold">Total Admin</h1>
             <div className=" bg-stone-500 text-white p-2 rounded-full">
               <IoSettingsOutline size={20} />
             </div>

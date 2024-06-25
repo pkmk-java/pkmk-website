@@ -18,6 +18,7 @@ import CustomerHandlerComponent from "./components/admin/CustomerHandler.jsx";
 import ProductListAdmin from "./components/admin/ProductListAdmin.jsx";
 import CustomerListAdmin from "./components/admin/CustomerListAdmin.jsx";
 import AdminListComponent from "./components/admin/AdminListAdmin.jsx";
+import AdminIncomeComponent from "./components/admin/IncomeAdmin.jsx";
 
 const router = createBrowserRouter([
   {
@@ -81,6 +82,10 @@ const router = createBrowserRouter([
       {
         path: "customer",
         element: <CustomerHandlerComponent />,
+      },
+      {
+        path: "income",
+        element: <AdminIncomeComponent />,
       },
     ],
   },
